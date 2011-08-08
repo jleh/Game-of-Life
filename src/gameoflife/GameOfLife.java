@@ -156,9 +156,15 @@ public class GameOfLife {
      */
     public static void main(String[] args) {
         //Testailua
-        
+
         Lataa lataaja = new Lataa();
-        lataaja.lataa();
+
+        System.out.println("Anna aloitustiedoston nimi ");
+        String aloitus = lukija.next();
+        
+        lataaja.lataa(aloitus);
+        if(lataaja.virhe == true)
+            return;
 
         GameOfLife peli = new GameOfLife(lataaja.x, lataaja.y);
 

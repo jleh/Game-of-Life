@@ -14,16 +14,20 @@ public class Lataa {
     public int x;
     public int y;
     public ArrayList<tiedostosolu> alkusolut = new ArrayList<tiedostosolu>();
+    private String tiedostonNimi;
+    boolean virhe = false;
 
-    public void lataa() {
+    public void lataa(String t) {
+        tiedostonNimi = t;
         System.out.println("Ladataan tiedostosta");
         BufferedReader tiedosto;
 
         try {
-            tiedosto = new BufferedReader(new FileReader("../alku.txt"));
+            tiedosto = new BufferedReader(new FileReader(tiedostonNimi));
         }
         catch (FileNotFoundException e) {
             System.out.println("Tiedostoa ei löydy");
+            virhe = true;
             return;
         }
 
