@@ -27,18 +27,36 @@ public class Solu {
     /**
      * Määrittää solun seuraavan tilan
      */
-    public void seuraavaTila() {
-        
+    public boolean seuraavaTila() {
+        if(getNaapureitaElossa() == 3 || getNaapureitaElossa() == 2)
+            seuraavaTila = true;
+        return seuraavaTila;
     }
     
     /**
      * Muuttaa solun tilan
      */
     public void muutaTila() {
-        
+        elossa = seuraavaTila;
     }
     
     public void asetaTila(boolean tila) {
         elossa = tila;
+    }
+
+    public void getNaapureidenTila() {
+        
+        for(int i = 0; i < 8; i++)
+            if(naapurit.get(i) != null)
+                System.out.println(naapurit.get(i).elossa);
+    }
+
+    public int getNaapureitaElossa() {
+        int naapureitaElossa = 0;
+        for(int i = 0; i < 8; i++)
+            if(naapurit.get(i) != null)
+                if(naapurit.get(i).elossa == true)
+                    naapureitaElossa++;
+        return naapureitaElossa;
     }
 }
