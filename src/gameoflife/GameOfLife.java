@@ -36,11 +36,21 @@ public class GameOfLife {
                 ruudukko[i][j] = new Solu();
             }
         }
+        
+        //Asetetaan naapurit
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
+                //TODO Naapureiden asettaminen
+                
+            }
+        }
     }
     
     public void setSolunTila(int x, int y, boolean tila) {
-        //TODO virheenkäsittely
-        ruudukko[x][y].asetaTila(tila);
+        if(x < ruudukkoX && x > ruudukkoX && y < ruudukkoY && y > ruudukkoY)
+            System.out.println("Virheelliset parametrit");
+        else
+            ruudukko[x][y].asetaTila(tila);
     }
     
     
@@ -55,6 +65,19 @@ public class GameOfLife {
         return ruudukko[x][y].elossa;
     }
     
+    public void tulostaRuudukko() {
+        //Tulostaa ruudukon
+        for(int x = 0; x < ruudukkoX; x++){
+            for(int y = 0; y < ruudukkoY; y++) { 
+                if(ruudukko[x][y].elossa == true)
+                    System.out.print("*");
+                else
+                    System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -64,5 +87,6 @@ public class GameOfLife {
         peli.setSolunTila(5, 5, true);
         System.out.println(peli.getSolunTila(5, 5));
         System.out.println(peli.getSolunTila(4, 5));
+        peli.tulostaRuudukko();
     }
 }
