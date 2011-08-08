@@ -1,0 +1,12 @@
+Ohjelmoinnin harjoitustyönä toteutettu Conway's Game of Life
+
+Ohjelma simuloi solujen elämää sääntöjen mukaan [tulee tähän].
+Käyttäjä näkee voi seurata simulointia ruudulta.
+
+Simuloinnin alkutilanne, eli mitkä solut ovat aluksi hengissä, määritellään
+tiedostossa, jossa:
+1. rivillä ruudukon leveys
+2. rivillä ruudukon korkus
+Alkutilanne: 
+" " = kuollut solu 
+* = elävä solu
