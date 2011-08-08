@@ -138,15 +138,7 @@ public class GameOfLife {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        //Testailua
-        GameOfLife peli = new GameOfLife(35, 35);
-
-
-
+    public void ajaSimulaatiota(GameOfLife peli) {
         while(true){
             System.out.println(sukupolvi);
             peli.tulostaRuudukko();
@@ -157,5 +149,23 @@ public class GameOfLife {
             }
             peli.simuloiKierros();
         }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //Testailua
+        
+        Lataa lataaja = new Lataa();
+        lataaja.lataa();
+
+        GameOfLife peli = new GameOfLife(lataaja.x, lataaja.y);
+
+        for(tiedostosolu s : lataaja.alkusolut){
+            peli.setSolunTila(s.x, s.y, s.elossa);
+        }
+
+        peli.ajaSimulaatiota(peli);
     }
 }
