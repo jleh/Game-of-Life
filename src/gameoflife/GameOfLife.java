@@ -16,6 +16,7 @@ public class GameOfLife {
     public int simulointiNopeus;
     public Solu[][] ruudukko;
     public static int sukupolvi = 0;
+    public static int nopeus;
 
     private static Scanner lukija = new Scanner(System.in);
     
@@ -143,7 +144,7 @@ public class GameOfLife {
             System.out.println(sukupolvi);
             peli.tulostaRuudukko();
             try {
-            Thread.sleep(1000); }
+            Thread.sleep((nopeus)); }
             catch(InterruptedException e){
 
             }
@@ -165,6 +166,9 @@ public class GameOfLife {
         lataaja.lataa(aloitus);
         if(lataaja.virhe == true)
             return;
+
+        System.out.println("Anna simulaation nopeus m sekunteina ");
+        nopeus = lukija.nextInt();
 
         GameOfLife peli = new GameOfLife(lataaja.x, lataaja.y);
 
