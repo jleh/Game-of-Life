@@ -3,7 +3,8 @@
  * and open the template in the editor.
  */
 package gameoflife;
-
+import java.lang.Thread;
+import java.util.Scanner;
 /**
  *
  * @author Juuso
@@ -14,7 +15,9 @@ public class GameOfLife {
     public int ruudukkoY;
     public int simulointiNopeus;
     public Solu[][] ruudukko;
-    public int sukupolvi = 0;
+    public static int sukupolvi = 0;
+
+    private static Scanner lukija = new Scanner(System.in);
     
     /**
      * Alustaa pelin
@@ -134,21 +137,25 @@ public class GameOfLife {
             System.out.println();
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         //Testailua
-        GameOfLife peli = new GameOfLife(10, 10);
-        peli.setSolunTila(5, 5, true);
-        peli.setSolunTila(6, 5, true);
-        peli.setSolunTila(7, 5, true);
-        //System.out.println(peli.getSolunTila(5, 5));
-        //System.out.println(peli.getSolunTila(4, 5));
-        //System.out.println(peli.ruudukko[5][5].seuraavaTila());
-        peli.tulostaRuudukko();
-        peli.simuloiKierros();
-        peli.tulostaRuudukko();
+        GameOfLife peli = new GameOfLife(35, 35);
+
+
+
+        while(true){
+            System.out.println(sukupolvi);
+            peli.tulostaRuudukko();
+            try {
+            Thread.sleep(1000); }
+            catch(InterruptedException e){
+
+            }
+            peli.simuloiKierros();
+        }
     }
 }

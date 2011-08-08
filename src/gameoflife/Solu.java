@@ -28,7 +28,11 @@ public class Solu {
      * Määrittää solun seuraavan tilan
      */
     public boolean seuraavaTila() {
-        if(getNaapureitaElossa() == 3 || getNaapureitaElossa() == 2)
+        seuraavaTila = false;
+        int elavatNaapurit = getNaapureitaElossa();
+        if(elavatNaapurit == 3 || elavatNaapurit == 2 && elossa == true)
+            seuraavaTila = true; //Pysyy hengissä
+        if(elossa == false && elavatNaapurit == 3) //Syntyminen
             seuraavaTila = true;
         return seuraavaTila;
     }
