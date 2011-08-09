@@ -5,6 +5,7 @@
 package gameoflife;
 import java.lang.Thread;
 import java.util.Scanner;
+import javax.swing.*;
 /**
  *
  * @author Juuso
@@ -17,6 +18,7 @@ public class GameOfLife {
     public Solu[][] ruudukko;
     public static int sukupolvi = 0;
     public static int nopeus;
+    public boolean kaynnissa = false;
 
     private static Scanner lukija = new Scanner(System.in);
     
@@ -140,7 +142,8 @@ public class GameOfLife {
     }
 
     public void ajaSimulaatiota(GameOfLife peli) {
-        while(true){
+        kaynnissa = true;
+        while(kaynnissa == true){
             System.out.println(sukupolvi);
             peli.tulostaRuudukko();
             try {
@@ -157,21 +160,30 @@ public class GameOfLife {
      */
     public static void main(String[] args) {
         //Testailua
-
+    
         Lataa lataaja = new Lataa();
 
-        System.out.println("Anna aloitustiedoston nimi ");
-        String aloitus = lukija.next();
+        //System.out.println("Anna aloitustiedoston nimi ");
+        //String aloitus = lukija.next();
+        String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto");
         
         lataaja.lataa(aloitus);
         if(lataaja.virhe == true)
             return;
 
-        System.out.println("Anna simulaation nopeus m sekunteina ");
-        nopeus = lukija.nextInt();
+//        System.out.println("Anna simulaation nopeus m sekunteina ");
+//        nopeus = lukija.nextInt();
 
+        nopeus = Integer.parseInt(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));
+        
         GameOfLife peli = new GameOfLife(lataaja.x, lataaja.y);
 
+        UI ikkuna = new UI(peli);
+        ikkuna.setTitle("Game of Life");
+        ikkuna.pack();
+        ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ikkuna.setVisible(true);
+        
         for(tiedostosolu s : lataaja.alkusolut){
             peli.setSolunTila(s.x, s.y, s.elossa);
         }
