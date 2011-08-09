@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 package gameoflife;
-import java.lang.Thread;
-import java.util.Scanner;
 import javax.swing.*;
 /**
  *
@@ -17,22 +15,14 @@ public class GameOfLife {
     public int simulointiNopeus;
     public Solu[][] ruudukko;
     public static int sukupolvi = 0;
-    public static int nopeus;
+    public static long nopeus = 1000;
     public boolean kaynnissa = false;
-
-    private static Scanner lukija = new Scanner(System.in);
     
     /**
      * Alustaa pelin
      */
     
     public void alustaPeli(int x, int y) {
-        ruudukkoX = x;
-        ruudukkoY = y;
-    }
-    
-    //Alustus toisella tavalla
-    public GameOfLife(int x, int y) {
         ruudukkoX = x;
         ruudukkoY = y;
         
@@ -95,6 +85,11 @@ public class GameOfLife {
         }
     }
     
+    //Alustus toisella tavalla
+    public GameOfLife() {
+        
+    }
+    
     public void setSolunTila(int x, int y, boolean tila) {
         if(x < ruudukkoX && x > ruudukkoX && y < ruudukkoY && y > ruudukkoY)
             System.out.println("Virheelliset parametrit");
@@ -106,7 +101,7 @@ public class GameOfLife {
     /**
      * Simuloi yhden kierroksen
      */
-    public void simuloiKierros() {
+    public boolean simuloiKierros() {
         //Haetaan solujen seuraavat tilat
         for(int x = 0; x < ruudukkoX; x++){
             for(int y = 0; y < ruudukkoY; y++) {
@@ -122,6 +117,8 @@ public class GameOfLife {
         }
 
         sukupolvi++; //Tieto monesko kierros menossa
+        this.tulostaRuudukko();
+        return true;
     }
     
     public boolean getSolunTila(int x, int y) {
@@ -140,19 +137,26 @@ public class GameOfLife {
             System.out.println();
         }
     }
-
-    public void ajaSimulaatiota(GameOfLife peli) {
-        kaynnissa = true;
-        while(kaynnissa == true){
-            System.out.println(sukupolvi);
-            peli.tulostaRuudukko();
-            try {
-            Thread.sleep((nopeus)); }
-            catch(InterruptedException e){
-
-            }
-            peli.simuloiKierros();
+    
+    public boolean lataaTiedostosta() { //Lataa aloitustilanteen tiedostosta
+        Lataa lataaja = new Lataa();
+        String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto"); //Kysytään tiedostoa
+        
+        lataaja.lataa(aloitus); //Ladataan tiedostosta
+        if(lataaja.virhe == true)
+            return false;
+        
+        this.alustaPeli(lataaja.x, lataaja.y);
+        
+        for(tiedostosolu s : lataaja.alkusolut){
+            this.setSolunTila(s.x, s.y, s.elossa);
         }
+        
+        return true;
+    }
+    
+    public void asetaNopeus() {
+        nopeus = Long.parseLong(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));
     }
 
     /**
@@ -161,33 +165,21 @@ public class GameOfLife {
     public static void main(String[] args) {
         //Testailua
     
-        Lataa lataaja = new Lataa();
-
-        //System.out.println("Anna aloitustiedoston nimi ");
-        //String aloitus = lukija.next();
-        String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto");
         
-        lataaja.lataa(aloitus);
-        if(lataaja.virhe == true)
-            return;
-
-//        System.out.println("Anna simulaation nopeus m sekunteina ");
-//        nopeus = lukija.nextInt();
-
-        nopeus = Integer.parseInt(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));
-        
-        GameOfLife peli = new GameOfLife(lataaja.x, lataaja.y);
-
+        GameOfLife peli = new GameOfLife();
         UI ikkuna = new UI(peli);
+
+        peli.lataaTiedostosta();
+        peli.asetaNopeus();
+        
+
         ikkuna.setTitle("Game of Life");
         ikkuna.pack();
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ikkuna.setVisible(true);
         
-        for(tiedostosolu s : lataaja.alkusolut){
-            peli.setSolunTila(s.x, s.y, s.elossa);
-        }
+        
 
-        peli.ajaSimulaatiota(peli);
+        //peli.ajaSimulaatiota(peli);
     }
 }
