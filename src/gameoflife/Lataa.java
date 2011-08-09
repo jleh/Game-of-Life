@@ -18,11 +18,16 @@ public class Lataa {
     boolean virhe = false;
 
     public void lataa(String t) {
+        if(t == null){ //Tiedoston nimeä ei anneta
+            virhe = true;
+            return;
+        }
+        
         tiedostonNimi = t;
         System.out.println("Ladataan tiedostosta");
         BufferedReader tiedosto;
 
-        try {
+        try { //Avataan tiedosto
             tiedosto = new BufferedReader(new FileReader(tiedostonNimi));
         }
         catch (FileNotFoundException e) {

@@ -17,6 +17,7 @@ public class GameOfLife {
     public static int sukupolvi = 0;
     public static long nopeus = 1000;
     public boolean kaynnissa = false;
+    private static UI ikkuna;
     
     /**
      * Alustaa pelin
@@ -117,7 +118,8 @@ public class GameOfLife {
         }
 
         sukupolvi++; //Tieto monesko kierros menossa
-        this.tulostaRuudukko();
+        //this.tulostaRuudukko();
+        this.piirraTilanne();
         return true;
     }
     
@@ -138,13 +140,33 @@ public class GameOfLife {
         }
     }
     
+    public void piirraTilanne() {
+        //Tulostaa ruudukon käyttöliittymälle
+        String tilanne = "<HTML>";
+        for(int x = 0; x < ruudukkoX; x++){
+            for(int y = 0; y < ruudukkoY; y++) { 
+                if(ruudukko[y][x].elossa == true)
+                    tilanne = tilanne + "x";
+                else
+                    tilanne = tilanne + "_";
+            }
+            tilanne = tilanne + "<BR>";
+        }
+        tilanne = tilanne + "</HTML>";
+        ikkuna.piirraTilanne(tilanne);
+        
+    }
+    
     public boolean lataaTiedostosta() { //Lataa aloitustilanteen tiedostosta
         Lataa lataaja = new Lataa();
         String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto"); //Kysytään tiedostoa
         
         lataaja.lataa(aloitus); //Ladataan tiedostosta
-        if(lataaja.virhe == true)
+        if(lataaja.virhe == true) {
+            lataaTiedostosta();
             return false;
+        }
+            
         
         this.alustaPeli(lataaja.x, lataaja.y);
         
@@ -156,7 +178,13 @@ public class GameOfLife {
     }
     
     public void asetaNopeus() {
-        nopeus = Long.parseLong(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));
+        try {
+            nopeus = Long.parseLong(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));
+        }
+        catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Virheellinen aika", null, JOptionPane.ERROR_MESSAGE);
+            asetaNopeus();
+        }
     }
 
     /**
@@ -167,7 +195,7 @@ public class GameOfLife {
     
         
         GameOfLife peli = new GameOfLife();
-        UI ikkuna = new UI(peli);
+        ikkuna = new UI(peli);
 
         peli.lataaTiedostosta();
         peli.asetaNopeus();
@@ -178,7 +206,7 @@ public class GameOfLife {
         ikkuna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ikkuna.setVisible(true);
         
-        
+        peli.piirraTilanne();
 
         //peli.ajaSimulaatiota(peli);
     }

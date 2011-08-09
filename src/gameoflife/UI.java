@@ -20,11 +20,13 @@ public class UI extends JFrame {
     private JButton lopeta;
     private JButton poistu;
     public Timer ajastin;
+    private JLabel alue = new JLabel("");
     
     public UI(final GameOfLife peli) {
         aloita = new JButton("Aloita");
         lopeta = new JButton("Pysäytä");
         poistu = new JButton("Sulje");
+        alue.setText("No voi lol");
         
         
         aloita.addActionListener(
@@ -50,10 +52,18 @@ public class UI extends JFrame {
                     }
                 });
         
-        setLayout(new GridLayout(3,1));
-        add(aloita);
-        add(lopeta);
-        add(poistu);
+        JPanel napit = new JPanel(new GridLayout(1,30));
+        napit.add(aloita);
+        napit.add(lopeta);
+        napit.add(poistu);
+        
+        this.setLayout(new BorderLayout(200,200));
+        this.add("North", napit);
+        this.add("South", alue);
+    }
+    
+    public void piirraTilanne(String tilanne) {
+        alue.setText(tilanne);
     }
     
     class simuloi extends TimerTask {
