@@ -159,11 +159,18 @@ public class GameOfLife {
     
     public boolean lataaTiedostosta() { //Lataa aloitustilanteen tiedostosta
         Lataa lataaja = new Lataa();
-        String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto"); //Kysytään tiedostoa
-        
+        //String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto"); //Kysytään tiedostoa
+        String aloitus = null;
+
+        JFileChooser valitsija = new JFileChooser();
+        int returnVal = valitsija.showOpenDialog(GameOfLife.ikkuna);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            aloitus = valitsija.getSelectedFile().getName();
+        }
+
         lataaja.lataa(aloitus); //Ladataan tiedostosta
         if(lataaja.virhe == true) {
-            lataaTiedostosta();
+            JOptionPane.showMessageDialog(null, "Virheellinen tiedosto", null, JOptionPane.ERROR_MESSAGE);
             return false;
         }
             

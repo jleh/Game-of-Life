@@ -1,5 +1,5 @@
 /*
- * Luokka käyttöliittymälle
+ * Luokka graafiselle käyttöliittymälle
  * 
  */
 package gameoflife;
@@ -19,6 +19,8 @@ public class UI extends JFrame {
     private JButton aloita;
     private JButton lopeta;
     private JButton poistu;
+    private JButton muutaAika;
+    private JButton lataaTiedostosta;
     public Timer ajastin;
     private JLabel alue = new JLabel("");
     
@@ -26,6 +28,8 @@ public class UI extends JFrame {
         aloita = new JButton("Aloita");
         lopeta = new JButton("Pysäytä");
         poistu = new JButton("Sulje");
+        muutaAika = new JButton("Muuta nopeutta");
+        lataaTiedostosta = new JButton("Lataa tilanne tiedostosta");
         alue.setText("No voi lol");
         
         
@@ -51,15 +55,32 @@ public class UI extends JFrame {
                         System.exit(0);
                     }
                 });
+
+        muutaAika.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent tapahtuma) {
+                        peli.asetaNopeus();
+                    }
+                });
+
+        lataaTiedostosta.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent tapahtuma) {
+                        peli.lataaTiedostosta();
+                        peli.piirraTilanne();
+                    }
+                });
         
         JPanel napit = new JPanel(new GridLayout(1,30));
         napit.add(aloita);
         napit.add(lopeta);
+        napit.add(muutaAika);
+        napit.add(lataaTiedostosta);
         napit.add(poistu);
         
         this.setLayout(new BorderLayout(200,200));
         this.add("North", napit);
-        this.add("South", alue);
+        this.add("Center", alue);
     }
     
     public void piirraTilanne(String tilanne) {
