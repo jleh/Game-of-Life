@@ -23,6 +23,8 @@ public class UI extends JFrame {
     private JButton lataaTiedostosta;
     public Timer ajastin;
     private JLabel alue = new JLabel("");
+    private JTable taulukko = new JTable(30, 30);
+    private JScrollPane scroll = new JScrollPane(taulukko);
     
     public UI(final GameOfLife peli) {
         aloita = new JButton("Aloita");
@@ -30,7 +32,6 @@ public class UI extends JFrame {
         poistu = new JButton("Sulje");
         muutaAika = new JButton("Muuta nopeutta");
         lataaTiedostosta = new JButton("Lataa tilanne tiedostosta");
-        alue.setText("No voi lol");
         
         
         aloita.addActionListener(
@@ -80,7 +81,8 @@ public class UI extends JFrame {
         
         this.setLayout(new BorderLayout(200,200));
         this.add("North", napit);
-        this.add("Center", alue);
+        //this.add("Center", alue);
+        this.add("Center", taulukko);
     }
     
     public void piirraTilanne(String tilanne) {
