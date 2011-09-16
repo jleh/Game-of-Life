@@ -39,7 +39,6 @@ public class GameOfLife {
         for(int i = 0; i < x; i++) {
             for(int j = 0; j < y; j++) {
                 Solu[] naapurit = new Solu[8];
-                //TODO Naapureiden asettaminen
                 //Lisätään solut, ellei ruudukon ulkopuolella
                 if((i-1) <= 0) //Vasemmalla ei soluja
                     naapurit[3] = null;
@@ -86,7 +85,6 @@ public class GameOfLife {
         }
     }
     
-    //Alustus toisella tavalla
     public GameOfLife() {
         
     }
@@ -118,8 +116,9 @@ public class GameOfLife {
         }
 
         sukupolvi++; //Tieto monesko kierros menossa
-        //this.tulostaRuudukko();
+        this.tulostaRuudukko();
         this.piirraTilanne();
+        ikkuna.muutaSukupolvea(sukupolvi);
         return true;
     }
     
@@ -165,7 +164,7 @@ public class GameOfLife {
         JFileChooser valitsija = new JFileChooser();
         int returnVal = valitsija.showOpenDialog(GameOfLife.ikkuna);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            aloitus = valitsija.getSelectedFile().getName();
+            aloitus = valitsija.getSelectedFile().getPath();
         }
 
         lataaja.lataa(aloitus); //Ladataan tiedostosta
@@ -197,10 +196,7 @@ public class GameOfLife {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        //Testailua
-    
-        
+    public static void main(String[] args) {    
         GameOfLife peli = new GameOfLife();
         ikkuna = new UI(peli);
 
@@ -214,7 +210,5 @@ public class GameOfLife {
         ikkuna.setVisible(true);
         
         peli.piirraTilanne();
-
-        //peli.ajaSimulaatiota(peli);
     }
 }

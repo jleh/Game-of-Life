@@ -23,8 +23,7 @@ public class UI extends JFrame {
     private JButton lataaTiedostosta;
     public Timer ajastin;
     private JLabel alue = new JLabel("");
-    private JTable taulukko = new JTable(30, 30);
-    private JScrollPane scroll = new JScrollPane(taulukko);
+    private JLabel sukupolvi = new JLabel("Sukupolvi: 0");
     
     public UI(final GameOfLife peli) {
         aloita = new JButton("Aloita");
@@ -71,7 +70,7 @@ public class UI extends JFrame {
                         peli.piirraTilanne();
                     }
                 });
-        
+             
         JPanel napit = new JPanel(new GridLayout(1,30));
         napit.add(aloita);
         napit.add(lopeta);
@@ -79,14 +78,18 @@ public class UI extends JFrame {
         napit.add(lataaTiedostosta);
         napit.add(poistu);
         
-        this.setLayout(new BorderLayout(200,200));
+        this.setLayout(new BorderLayout(20,20));
         this.add("North", napit);
-        //this.add("Center", alue);
-        this.add("Center", taulukko);
+        this.add(sukupolvi);
+//        this.add("Center", alue);
     }
     
     public void piirraTilanne(String tilanne) {
         alue.setText(tilanne);
+    }
+    
+    public void muutaSukupolvea(int s){
+        sukupolvi.setText("Sukupolvi: " + s);
     }
     
     class simuloi extends TimerTask {
