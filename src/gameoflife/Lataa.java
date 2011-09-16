@@ -17,6 +17,10 @@ public class Lataa {
     private String tiedostonNimi;
     boolean virhe = false;
 
+    /**
+     * Lataa alkutilanteen tiedostosta
+     * @param t 
+     */
     public void lataa(String t) {
         if(t == null){ //Tiedoston nimeä ei anneta
             virhe = true;

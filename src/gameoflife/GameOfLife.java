@@ -85,10 +85,19 @@ public class GameOfLife {
         }
     }
     
+    /**
+     * Luo uuden pelin
+     */
     public GameOfLife() {
         
     }
     
+    /**
+     * Asettaa tietylle solulle määritellyn tilan
+     * @param x
+     * @param y
+     * @param tila 
+     */
     public void setSolunTila(int x, int y, boolean tila) {
         if(x < ruudukkoX && x > ruudukkoX && y < ruudukkoY && y > ruudukkoY)
             System.out.println("Virheelliset parametrit");
@@ -122,10 +131,19 @@ public class GameOfLife {
         return true;
     }
     
+    /**
+     * Hakee parametrina annetun solun tilan
+     * @param x
+     * @param y
+     * @return 
+     */
     public boolean getSolunTila(int x, int y) {
         return ruudukko[x][y].elossa;
     }
     
+    /**
+     * Tulostaa ruudukon komentoriville
+     */
     public void tulostaRuudukko() {
         //Tulostaa ruudukon
         for(int x = 0; x < ruudukkoX; x++){
@@ -139,6 +157,9 @@ public class GameOfLife {
         }
     }
     
+    /**
+     * Piirtää tilanteen JLabelille
+     */
     public void piirraTilanne() {
         //Tulostaa ruudukon käyttöliittymälle
         String tilanne = "<HTML>";
@@ -156,6 +177,10 @@ public class GameOfLife {
         
     }
     
+    /**
+     * Lataa aloitustilanteen tiedostotsta
+     * @return 
+     */
     public boolean lataaTiedostosta() { //Lataa aloitustilanteen tiedostosta
         Lataa lataaja = new Lataa();
         //String aloitus = JOptionPane.showInputDialog("Anna aloitustiedosto"); //Kysytään tiedostoa
@@ -183,6 +208,9 @@ public class GameOfLife {
         return true;
     }
     
+    /**
+     * Asettaa simulaation nopeuden
+     */
     public void asetaNopeus() {
         try {
             nopeus = Long.parseLong(JOptionPane.showInputDialog("Anna simulaation nopeus millisekunteina"));

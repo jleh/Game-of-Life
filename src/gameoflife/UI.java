@@ -84,10 +84,19 @@ public class UI extends JFrame {
 //        this.add("Center", alue);
     }
     
+    /**
+     * Piirtää tilanteen JLabeliin
+     * Ei käytössä, mutta mukana jatkokehitystä varten
+     * @param tilanne 
+     */
     public void piirraTilanne(String tilanne) {
         alue.setText(tilanne);
     }
     
+    /**
+     * Vaihtaa käyttäjälle näkyvän tiedon sukupolvesta oikeaksi
+     * @param s 
+     */
     public void muutaSukupolvea(int s){
         sukupolvi.setText("Sukupolvi: " + s);
     }

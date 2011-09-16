@@ -14,10 +14,17 @@ public class Solu {
     public ArrayList<Solu> naapurit = new ArrayList<Solu>();
     public boolean seuraavaTila;
     
+    /**
+     * Luo uuden solun
+     */
     public Solu() {
         elossa = false;
     }
     
+    /**
+     * Lisää solulle naapurit, jotka annetaan parametrina
+     * @param solut 
+     */
     public void lisaaNaapurit(Solu[] solut) {
         for(int i = 0; i < 8; i++) {
             naapurit.add(solut[i]);
@@ -26,6 +33,7 @@ public class Solu {
     
     /**
      * Määrittää solun seuraavan tilan
+     * @return 
      */
     public boolean seuraavaTila() {
         seuraavaTila = false;
@@ -44,10 +52,17 @@ public class Solu {
         elossa = seuraavaTila;
     }
     
+    /**
+     * Asettaa solulle parametrina annetun tilan
+     * @param tila 
+     */
     public void asetaTila(boolean tila) {
         elossa = tila;
     }
 
+    /**
+     * Selvittää solun naapureiden tilan
+     */
     public void getNaapureidenTila() {
         
         for(int i = 0; i < 8; i++)
@@ -55,6 +70,10 @@ public class Solu {
                 System.out.println(naapurit.get(i).elossa);
     }
 
+    /**
+     * Laskee montako elossa olevaa naapuria solulla on
+     * @return 
+     */
     public int getNaapureitaElossa() {
         int naapureitaElossa = 0;
         for(int i = 0; i < 8; i++)
